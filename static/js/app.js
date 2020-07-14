@@ -29,12 +29,12 @@ function optionChanged(metadata, samples) {
       selectedData.append('p').text(`${key}: ${value}`);
     });
 
-    // sort the data from most to least sample values
+    // perform data sort
     samples.sort(function (a, b) {
       return parseInt(b.sample_values) - parseInt(a.sample_values);
     });
 
-    // now populate arrays with data
+    // now populate arrays with data from selected Sample
     otu_ids = samples[0].otu_ids;
     top_otu_ids = otu_ids.slice(0, 10).reverse();
     otu_labels = samples[0].otu_labels;
@@ -45,9 +45,9 @@ function optionChanged(metadata, samples) {
     // format OTU for nicer display
     var ticks = top_otu_ids.map((otu) => `OTU ${otu}`);
 
-    // Begin our tarce
+    // Begin our trace
 
-    // Bar chart
+    // Firt - our Bar chart
     var trace1 = {
       x: top_sample_values,
       y: ticks,
@@ -65,7 +65,7 @@ function optionChanged(metadata, samples) {
 
     Plotly.newPlot('bar', barChartData, layout);
 
-    // Bubble chart
+    // Next - our Bubble chart
     var trace2 = {
       x: otu_ids,
       y: sample_values,
@@ -83,7 +83,7 @@ function optionChanged(metadata, samples) {
         sizemode: 'area',
       },
     };
-    // define Buvbble charts
+    // define Bubble charts
     // with display options
     var bubbleChartData = [trace2];
     var layoutBubble = {
